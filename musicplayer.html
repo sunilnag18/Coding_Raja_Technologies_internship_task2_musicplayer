@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="musicplayer.css">
+</head>
+<body>
+    <div class="player">
+        <div class="song-image">
+            <img id="song-image" src="song1.jpg" alt="Song Image">
+        </div>
+        <h2 id="song-title">Song Title</h2>
+        <audio id="audio-player" controls></audio>
+        <div class="controls">
+            <button id="prev">Prev</button>
+            <button id="play">Play</button>
+            <button id="pause">Pause</button>
+            <button id="next">Next</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const songs = [
+    {
+        title: "coolio",
+        file: "Gangstas-Paradise(Pagal-World.Com.In).mp3"
+    },
+    {
+        title: "kgf1",
+        file: "Karuvinil-Enai-MassTamilan.org.mp3",
+        image: "song2.jpg"
+    },
+    {
+        title: "kgf2",
+        file: "Dheera-Dheera-MassTamilan.org.mp3",
+        image: "song3.jpg"
+    }
+];
+
+let currentIndex = 0;
+const audioPlayer = document.getElementById('audio-player');
+const songTitle = document.getElementById('song-title');
+const songImage = document.getElementById('song-image');
+
+function loadSong(index) {
+    const song = songs[index];
+    songTitle.textContent = song.title;
+    audioPlayer.src = song.file;
+    songImage.src = song.image;
+}
+
+document.getElementById('play').addEventListener('click', () => {
+    audioPlayer.play();
+});
+
+document.getElementById('pause').addEventListener('click', () => {
+    audioPlayer.pause();
+});
+
+document.getElementById('prev').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+    loadSong(currentIndex);
+    audioPlayer.play();
+});
+
+document.getElementById('next').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % songs.length;
+    loadSong(currentIndex);
+    audioPlayer.play();
+});
+
+// Load the first song initially
+loadSong(currentIndex);
+
+    </script>
+</body>
+</html>
